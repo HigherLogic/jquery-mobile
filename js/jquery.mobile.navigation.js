@@ -539,9 +539,11 @@ define( [
 					all.get( 0 ).innerHTML = html;
 					page = all.find( ":jqmData(role='page'), :jqmData(role='dialog')" ).first();
 
-					//if page elem couldn't be found, create one and insert the body element's contents
-					if ( !page.length ) {
-						page = $( "<div data-" + $.mobile.ns + "role='page'>" + ( html.split( /<\/?body[^>]*>/gmi )[1] || "" ) + "</div>" );
+					if (settings.reloadAjaxNonMobileRedirects && !page.length) {
+					    window.location = absUrl;
+					}  
+					else if (!page.length) { //if page elem couldn't be found, create one and insert the body element's contents
+					    page = $("<div data-" + $.mobile.ns + "role='page'>" + (html.split(/<\/?body[^>]*>/gmi)[1] || "") + "</div>");
 					}
 
 					if ( newPageTitle && !page.jqmData( "title" ) ) {
@@ -658,7 +660,8 @@ define( [
 		role: undefined, // By default we rely on the role defined by the @data-role attribute.
 		showLoadMsg: false,
 		pageContainer: undefined,
-		loadMsgDelay: 50 // This delay allows loads that pull from browser cache to occur without showing the loading message.
+		loadMsgDelay: 50, // This delay allows loads that pull from browser cache to occur without showing the loading message.
+            	reloadAjaxNonMobileRedirects: false //if ajax call is redirected w/ 301 and result has not page, change window.location
 	};
 
 	// Show a specific page in the page container.
