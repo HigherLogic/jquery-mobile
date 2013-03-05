@@ -661,7 +661,7 @@ define( [
 		showLoadMsg: false,
 		pageContainer: undefined,
 		loadMsgDelay: 50, // This delay allows loads that pull from browser cache to occur without showing the loading message.
-            	reloadAjaxNonMobileRedirects: false //if ajax call is redirected w/ 301 and result has not page, change window.location
+            	reloadAjaxNonMobileRedirects: false //if ajax call is redirected w/ 302 and result has no page, change window.location
 	};
 
 	// Show a specific page in the page container.
